@@ -47,12 +47,12 @@ public class Ejemplo12 {
             this.serverPort = serverPort;
             
             //Crea el objeto que se desea enviar.
-            Person person = new Person("Martin", 7, 1, 32);
+            Person persona = new Person("Martin", 7, 1.32);
             
-            System.out.print(person);
+            System.out.print(persona);
             
             //Envía el objeto.
-            send(person);
+            send(persona);
             
             //Recibe la respuesta que viene del servidor.
             String answer = (String) receive();
@@ -93,7 +93,7 @@ public class Ejemplo12 {
     {
         //Serializa el objeto en un byte array.
         byte[] ba;
-        ba = Util.objectToByteArray(o);
+        ba = Utilidad.objectToByteArray(o);
         
         //Crea el paquete para enviar, usando el byte array que acaba de crear.
         packetToSend = new DatagramPacket
@@ -118,7 +118,7 @@ public class Ejemplo12 {
          clientSocket.receive(packetToReceive);
          
          //Deserializa el byte array en un objeto.
-         Object o = Util.byteArrayToObject(bufferToReceive);
+         Object o = Utilidad.byteArrayToObject(bufferToReceive);
          
          //Retorna el objeto ya deserializado.
          return o;

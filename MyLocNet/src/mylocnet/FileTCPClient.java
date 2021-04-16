@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author nicol
  */
-public class Ejemplo8 {
+public class FileTCPClient {
  
     public static final int PORT = 20000;
     public static final String SERVER_LOCATION = "localhost";
@@ -30,7 +30,7 @@ public class Ejemplo8 {
     private File               file;
     
     //Método constructor.
-    public Ejemplo8( ) { 
+    public FileTCPClient( ) { 
         System.out.print("File Transfer Client");
         
         try {
@@ -78,11 +78,80 @@ public class Ejemplo8 {
         try {
             //Se crea el archivo con el nombre especificado en la carpeta Download.
             //Obserbe que esta carpeta debe existir en el host del cliente.
-            file = new File("Download" + File.separator + fileName);
+            file = new File("Download" + File.separator + filename);
             out = new FileOutputStream(file);
             
             //El cliente recibe el número de bloques que compone el archivo.
-            int numberOfBlocks = ((Integer) receive()).intValue();{
+            int numberOfBlocks = ((Integer) receive());
+            
+            //Se reciben uno a uno los bloques que conforman el archivo y se 
+            //almacenan en el erchivo.
+            for(int i = 0; i< numberOfBlocks; i++)
+            {
+                byte[] buffer = (byte[])receive();
+                out.write(buffer, 0, buffer.length);
+            }
         }
+        //Puede lanzar una excepción por clase no encontrada.
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        //Puede lanzar una excepción por un archivo no encontrado.
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        //Puede lanzar una excepción de entrada y salida.
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }    
+        //Finalmente se cierra el archivo.
+        finally
+        {
+            if(out !=null)out.close();
+        }    
     }
+    
+    /**
+     * Este método permite crear los flujos de entrada y salida necesarios para
+     * comunicar el cliente y el servidor.
+     * @throws IOException
+     */
+    private void crearFlujos() throws IOException {
+        
+        //Creación del flujo de entrada desde el servidor.
+        inFromServer = new ObjectInputStream(clientSocket.getInputStream());
+        
+        //Creación del flujo de salida hacia el servidor.
+        outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
     }
+    
+    /**Este método permite enviar un objeto al servidor.
+     * @param o Recibe por parámetro el objeto que desea enviar.
+     * @throws IOException
+     */
+    private void send(Object o) throws IOException {
+        
+        outToServer.writeObject(o);
+        outToServer.flush();
+    }
+    
+/**
+ * Este método permite recibir un objeto enviado por el servidor.
+ * @throws IOException
+ * @throws ClassNotFoundException
+ */
+ private Object receive() throws IOException, ClassNotFoundException {
+     return inFromServer.readObject();
+ }
+ 
+/**
+ * Método principal utilizado para lanzar el programa cliente.
+ */
+ public static void main (String args []) throws Exception {
+     
+     new FileTCPClient();
+ }
+}   
