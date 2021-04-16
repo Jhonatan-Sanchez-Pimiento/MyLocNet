@@ -8,8 +8,14 @@ public class MyLocNet {
 
     
     public static void main(String[] args) {
-        Principal ppal = new Principal () ;
-        ppal.setVisible (true);
+
+        Operacion opr = new Operacion();
+        int bin = 257;
+        String valor = opr.DecimalABinario(bin);
+        Interfaces_Red_Local redlocal = new Interfaces_Red_Local();
+        redlocal.setVisible(true);
+        Subneteo subnet = new Subneteo();
+        subnet.setVisible(true);
     }
     
 }

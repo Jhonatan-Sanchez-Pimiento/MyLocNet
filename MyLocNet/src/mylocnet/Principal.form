@@ -73,6 +73,7 @@
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
+<<<<<<< HEAD
       <Group type="103" groupAlignment="1" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -116,6 +117,13 @@
                   <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+=======
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" pref="262" max="-2" attributes="0"/>
+              <EmptySpace pref="215" max="32767" attributes="0"/>
+>>>>>>> 382eedf457b74e05e06a6e055e82600064d53245
           </Group>
       </Group>
     </DimensionLayout>
