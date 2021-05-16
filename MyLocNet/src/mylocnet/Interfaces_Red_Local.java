@@ -12,10 +12,12 @@ import java.util.Enumeration;
  * @JhonatanSanchez @KatianaTordecilla @NicolasSutachan
  */
 public class Interfaces_Red_Local extends javax.swing.JFrame {
-
+    
+     InetAddress direccion;
     
     public Interfaces_Red_Local() {
         initComponents();
+        setLocationRelativeTo(null);
         direccionIP();
     }
     
@@ -23,13 +25,15 @@ public class Interfaces_Red_Local extends javax.swing.JFrame {
         try{
             //Se obtiene la lista de interfaces de red (NIC) del host local
             Enumeration <NetworkInterface> hostNics = NetworkInterface.getNetworkInterfaces();
-            
             //Por cada una de las interfaces de red del host
+            int a = NetworkInterface.getNetworkInterfaces().nextElement().getIndex();
+            System.out.println(a);
             while(hostNics.hasMoreElements()){
                 //Se obtiene su nombre y se imprime en la consola
                 NetworkInterface nic = hostNics.nextElement();
+                
                 //Imprime el nombre de la Interfaz
-                System.out.println("Interfaz " + nic.getName() + ":");
+                areatxt.setText(areatxt.getText()+ "\nInterfaz " + nic.getDisplayName() + ":\n");
                 //Se obtiene las direcciones IP asociadas a la interfaz de red
                 Enumeration <InetAddress> nicdir = nic.getInetAddresses();
                 //Cada dirección IP se clasifica como dirección V4 o V6 y se imprime
@@ -38,10 +42,10 @@ public class Interfaces_Red_Local extends javax.swing.JFrame {
                     InetAddress direccion = nicdir.nextElement();
                     
                     if(direccion instanceof Inet4Address){
-                        System.out.println("( IPv4 ) : " + direccion.getHostAddress());
+                        areatxt.setText(areatxt.getText()+ "( IPv4 ) : " + direccion.getHostAddress()+"\n");
                     } else {
                         if (direccion instanceof Inet6Address){
-                            System.out.println("( IPv6 ) : "+ direccion.getHostAddress());
+                            areatxt.setText(areatxt.getText()+"( IPv6 ) : "+ direccion.getHostAddress()+"\n");
                         }
                     }
                 }
@@ -56,17 +60,55 @@ public class Interfaces_Red_Local extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lbltit = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areatxt = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lbltit.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lbltit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbltit.setText("INTERFACES DE LA RED LOCAL");
+
+        areatxt.setColumns(20);
+        areatxt.setRows(5);
+        jScrollPane1.setViewportView(areatxt);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(lbltit, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbltit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -106,5 +148,9 @@ public class Interfaces_Red_Local extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areatxt;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbltit;
     // End of variables declaration//GEN-END:variables
 }
