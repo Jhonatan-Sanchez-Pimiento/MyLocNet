@@ -44,7 +44,6 @@ public class Principal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
         jButton2.setText("jButton2");
         jButton2.setPreferredSize(new java.awt.Dimension(100, 50));
 
@@ -132,7 +131,6 @@ public class Principal extends javax.swing.JFrame {
                 jButton16ActionPerformed(evt);
             }
         });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
